@@ -1,0 +1,244 @@
+https://github.com/waylau/github-help/blob/master/Generating%20SSH%20keys%20生成%20SSH%20密钥.md  （参考）
+
+https://segmentfault.com/a/1190000011909294（参考）
+
+C:\Users\admin\.ssh
+
+
+当遇到提示Enter passphrase for key ‘/Users/renpeng/.ssh/id_rsa’: 
+此时需要输入你创建ssh key是的密码 我使用邮箱和密码创建的 所以输入当时添加的密码就好
+
+
+admin@admin-PC MINGW64 /e/github (master)
+$ git init
+Reinitialized existing Git repository in E:/github/.git/
+
+admin@admin-PC MINGW64 /e/github (master)
+$ ssh-keygen -t rsa -C "26858188802qq.com"
+Generating public/private rsa key pair.(回车)
+Enter file in which to save the key (/c/Users/admin/.ssh/id_rsa):
+Created directory '/c/Users/admin/.ssh'.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /c/Users/admin/.ssh/id_rsa.
+Your public key has been saved in /c/Users/admin/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:M9Y8iT3G8utLLmofgRS/L/cEPlszdtBSAHbRH4bNO+k 26858188802qq.com
+The key's randomart image is:
++---[RSA 2048]----+
+|      .   o.+o+  |
+|       o . . o.= |
+|      . .     o.+|
+|     . . B . o +.|
+|      . S @ o o .|
+|       . X + o E |
+|        o B * .  |
+|      . .* O +   |
+|     ..o.o*..    |
++----[SHA256]-----+
+--密钥身份认证的过程是理解ssh-agent的关键
+admin@admin-PC MINGW64 /e/github (master)
+$ ssh-agent -s
+SSH_AUTH_SOCK=/tmp/ssh-OQBpgTvX5M1p/agent.21084; export SSH_AUTH_SOCK;
+SSH_AGENT_PID=23936; export SSH_AGENT_PID;
+echo Agent pid 23936;
+
+admin@admin-PC MINGW64 /e/github (master)
+$ ssh-add ~/.ssh/id_rsa
+Could not open a connection to your authentication agent.
+
+--可以用 ssh -T git@github.com去测试一下是否缺少公钥
+admin@admin-PC MINGW64 /e/github (master)
+$ ssh -T git@github.com
+The authenticity of host 'github.com (13.229.188.59)' can't be established.
+RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'github.com,13.229.188.59' (RSA) to the list of known hosts.
+Enter passphrase for key '/c/Users/admin/.ssh/id_rsa':
+Hi 2685818880! You've successfully authenticated, but GitHub does not provide shell access.
+
+
+下载 git clone 链接地址
+https://blog.csdn.net/qq_35860352/article/details/80313078 （参考）
+
+
+admin@admin-PC MINGW64 /e/github (master)
+$ git clone git@github.com:2685818880/hibernate.git
+Cloning into 'hibernate'...
+Warning: Permanently added the RSA host key for IP address '13.250.177.223' to the list of known hosts.
+Enter passphrase for key '/c/Users/admin/.ssh/id_rsa':
+remote: Enumerating objects: 52, done.
+remote: Total 52 (delta 0), reused 0 (delta 0), pack-reused 52
+Receiving objects: 100% (52/52), 6.77 MiB | 34.00 KiB/s, done.
+Resolving deltas: 100% (1/1), done.
+
+
+
+
+
+
+
+https://blog.csdn.net/jackson23333/article/details/81315474 上传（参考）
+
+admin@admin-PC MINGW64 /e/github (master)
+$ git clone git@github.com:2685818880/PDA-2020.git
+Cloning into 'PDA-2020'...
+Warning: Permanently added the RSA host key for IP address '52.74.223.119' to the list of known hosts.
+Enter passphrase for key '/c/Users/admin/.ssh/id_rsa':
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (3/3), done.
+
+admin@admin-PC MINGW64 /e/github (master)
+$ cd PDA-2020
+
+admin@admin-PC MINGW64 /e/github/PDA-2020 (main)
+$ git add.
+git: 'add.' is not a git command. See 'git --help'.
+
+The most similar command is
+        add
+
+admin@admin-PC MINGW64 /e/github/PDA-2020 (main)
+$ git add .
+
+admin@admin-PC MINGW64 /e/github/PDA-2020 (main)
+$ git commit -m "提交测试"
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: unable to auto-detect email address (got 'admin@admin-PC.(none)')
+
+admin@admin-PC MINGW64 /e/github/PDA-2020 (main)
+$ git config --global user.name "xud"
+
+admin@admin-PC MINGW64 /e/github/PDA-2020 (main)
+$  git config --global user.email "2685818880@qq.com"
+
+admin@admin-PC MINGW64 /e/github/PDA-2020 (main)
+$ git commit -m 'commit test'
+[main d80eaa5] commit test
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 test.txt
+
+admin@admin-PC MINGW64 /e/github/PDA-2020 (main)
+$ git push -u origin master
+error: src refspec master does not match any.
+error: failed to push some refs to 'git@github.com:2685818880/PDA-2020.git'
+
+admin@admin-PC MINGW64 /e/github/PDA-2020 (main)
+$ git push -u origin main
+Enter passphrase for key '/c/Users/admin/.ssh/id_rsa':
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 263 bytes | 263.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To github.com:2685818880/PDA-2020.git
+   1f1ea8e..d80eaa5  main -> main
+Branch 'main' set up to track remote branch 'main' from 'origin'.
+
+
+
+
+
+分支
+
+https://www.liaoxuefeng.com/wiki/896043488029600/896827951938304
+
+
+admin@admin-PC MINGW64 /e/github (master)
+$ cd PDA-2020
+
+admin@admin-PC MINGW64 /e/github/PDA-2020 (main)
+$ git config --global user.name "xud"
+
+
+admin@admin-PC MINGW64 /e/github/PDA-2020 (main)
+$  git config --global user.email "2685818880@qq.com"
+
+admin@admin-PC MINGW64 /e/github/PDA-2020 (main)
+$ git add .
+
+
+admin@admin-PC MINGW64 /e/github/PDA-2020 (main)
+$ git commit -m "提交测试"
+
+
+--用分支 main 提交
+admin@admin-PC MINGW64 /e/github/PDA-2020 (main)
+$ git push -u origin main
+error: src refspec master does not match any.
+error: failed to push some refs to 'git@github.com:2685818880/PDA-2020.git'
+
+
+
+把代码提交到远程仓库
+git remote add origin https://gitee.com/2685818880/hibernate.git 
+
+
+如果你的团队开发伙伴提交了代码，你怎么获取最新的呢
+git pull origin master
+
+
+
+有时候也会查看一下日志吧
+
+git log //查看项目日志
+git log <fileName> //查看文件日志
+git log . //查看当下目录日志
+
+
+如果感觉log有点乱,可以让日志单行显示.
+
+git log --pretty=oneline,
+
+查看一下版本变化
+
+git reflog
+
+
+
+来试一试版本切换
+切换为head的前1版本,git reset --hard HEAD^
+切换为head的前2版本,git reset --hard HEAD^^
+切换为head的前100版本,git reset --hard HEAD~100
+也可以利用版本号来切换,例
+git reset --hard 6207e59
+
+忽略文件
+
+目录下新建.gitignore 里面加入想要忽略的目录或文件
+
+
+开发中也会用到分支吧
+
+git branch //查看所有分支
+git branch dev //创建一个分支
+git checkout dev //切换一下分支到dev（执行git branck命令时，所处的分支是绿色的）
+git checkout -b dev //创建dev分支并立即切换到dev分支
+
+
+
+利用别名推文件
+git push newonline master 
+
+
+
+
+
+
+
+
+
+
+
